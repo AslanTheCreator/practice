@@ -1,24 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext, useEffect, useState } from 'react';
+import Router from './components/Router';
+
+export const UserContext = createContext();
 
 function App() {
+  const [isUser, setIsUser] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('isUser', JSON.stringify(isUser));
+  }, [isUser]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={{ isUser, setIsUser }}>
+      <Router />
+    </UserContext.Provider>
   );
 }
 
